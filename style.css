@@ -4,8 +4,8 @@ position:relative;
 }
 .marker1{
   position:absolute;
-  left:300px;
-  top:400px;
+  left:300px!important;
+  top:400px!important;
 }
 .widget-map,
 .widget-map-google,
