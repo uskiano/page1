@@ -1,4 +1,445 @@
-body {
-
-background:blue;
+.widget-map,
+.widget-map-google,
+.widget-map-network-full {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+}
+.widget-map .widget-body,
+.widget-map-google .widget-body,
+.widget-map-network-full .widget-body {
+  width: 100%;
+  height: 100%;
+}
+.widget-map-network .widget-options,
+.widget-neighbor-map-network .widget-options {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 14px 9px;
+  cursor: pointer;
+}
+.widget-map-network .widget-options i,
+.widget-neighbor-map-network .widget-options i {
+  display: inline;
+  color: #000;
+}
+.widget-map-network .widget-options:hover i,
+.widget-neighbor-map-network .widget-options:hover i {
+  filter: brightness(1.2);
+}
+.map-topbar {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  height: 40px;
+  border-bottom: solid 2px transparent;
+}
+.map-topbar input {
+  border: none;
+  font-size: 18px;
+  padding: 4px 2px 2px 2px;
+  margin-top: 5px;
+  width: calc(100% - 31px);
+  background: #282d2f;
+}
+.map-neighbor {
+  position: relative;
+}
+.map-neighbor .widget-neighbor-map {
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.map-description {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: calc(100% - 10px);
+  height: 40px;
+  padding: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  background: hsla(0, 0%, 100%, 0.9);
+  border: solid 1px hsl(198, 100%, 95%);
+  border-radius: 5px;
+}
+.map-description h3 {
+  font-size: 12px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: hsl(198, 82%, 64%);
+}
+.map-description h3 span {
+  color: #313131;
+}
+.map-description h4 {
+  font-size: 12px;
+  color: hsl(198, 82%, 64%);
+  text-align: right;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.map-description h4 span {
+  color: #313131;
+}
+.map-description i {
+  color: hsl(198, 82%, 64%);
+  font-size: 10px;
+  margin-right: 4px;
+}
+.mini-map-container {
+  width: calc(100% - 42px);
+  height: calc(100% - 9px);
+  margin: 0px 5px 0px 30px;
+}
+.marker {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 0;
+  top: 0;
+  font-size: 30px;
+  padding: 10px 10px;
+  cursor: pointer;
+  transition: transform 0.18s ease-in-out;
+  animation-delay: 1s;
+  z-index: 6;
+  border-radius: 100%;
+}
+.marker.site.selected i,
+.marker.site:hover i {
+  filter: brightness(0.7);
+}
+.marker.dt:hover svg,
+.marker.zs:hover svg,
+.marker.site:hover svg {
+  animation: shake-marker 0.34s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+.marker:hover i {
+  text-shadow: 0 0 5px hsla(0, 0%, 100%, 0.6);
+}
+.marker.dt,
+.marker.zs {
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+}
+.marker.dt svg,
+.marker.zs svg {
+  z-index: 1;
+}
+.marker.dt svg polygon,
+.marker.zs svg polygon {
+  stroke-width: 3px;
+}
+.marker.dt span,
+.marker.zs span {
+  position: absolute;
+  z-index: 2;
+  font-size: 12px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.marker.zs {
+  width: 40px;
+  height: 40px;
+  z-index: 4;
+}
+.marker.zs:hover {
+  z-index: 30;
+}
+.marker.zs svg polygon {
+  stroke: hsl(193, 25%, 70%);
+  fill: hsl(193, 30%, 80%);
+}
+.marker.zs span {
+  font-size: 14px;
+  color: hsl(198, 15%, 25%);
+}
+.marker.dt {
+  z-index: 5;
+}
+.marker.dt svg polygon {
+  stroke: hsl(193, 24%, 65%);
+  fill: hsl(193, 32%, 88%);
+}
+.marker.dt span {
+  color: hsl(193, 9%, 25%);
+}
+.marker.dt:hover {
+  z-index: 30;
+}
+.marker [class^="marker-part"] {
+  stroke: hsla(0, 0%, 0%, 0);
+}
+.marker .marker-part1.active {
+  stroke: hsl(10, 40%, 50%) !important;
+}
+.marker .marker-part2.active {
+  stroke: hsl(193, 25%, 50%) !important;
+}
+.marker .marker-part3.active {
+  stroke: hsl(330, 25%, 50%) !important;
+}
+.marker .marker-part4.active {
+  stroke: hsl(50, 25%, 50%) !important;
+}
+.marker .marker-part5.active {
+  stroke: hsl(260, 25%, 50%) !important;
+}
+.marker .marker-part6.active {
+  stroke: hsl(140, 25%, 50%) !important;
+}
+.marker i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: hsl(193, 25%, 60%);
+}
+.marker.central-node svg circle {
+  fill: black;
+  stroke: white;
+}
+.marker.central-node i {
+  color: white;
+}
+.marker svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  fill: transparent;
+}
+.marker svg circle {
+  fill: white;
+  stroke: hsl(193, 40%, 85%);
+}
+.marker svg path {
+  stroke: white;
+  stroke-width: 4;
+  fill: transparent;
+}
+.marker.highlighted {
+  z-index: 25;
+  animation: none !important;
+}
+.marker.selected {
+  z-index: 24;
+  animation: node-pulse 1.5s infinite;
+  color: white;
+}
+.marker.menu {
+  width: 84px;
+  height: 84px;
+  z-index: 30;
+  animation: marker-show-menu ease-out 0.17s forwards;
+  animation-iteration-count: 1;
+}
+.marker.menu [class^="marker-part"] {
+  stroke: hsla(0, 0%, 0%, 0);
+}
+.marker.menu path {
+  stroke-width: 15;
+}
+.marker.menu i {
+  position: absolute;
+  font-size: 15px;
+  color: white;
+  opacity: 0;
+}
+.marker.menu i.active {
+  opacity: 1;
+}
+.marker.menu .icon-part1 {
+  left: 30px;
+  top: 20px;
+}
+.marker.menu .icon-part2 {
+  left: 54px;
+  top: 19px;
+  text-shadow: 0 0 1px black;
+  font-weight: bold;
+}
+.marker.menu .icon-part3 {
+  left: 68px;
+  top: 40px;
+  font-size: 18px;
+}
+.marker.menu .icon-part4 {
+  left: 56px;
+  top: 63px;
+}
+.marker.menu .icon-part5 {
+  left: 29px;
+  top: 63px;
+}
+.marker.menu .icon-part6 {
+  left: 17px;
+  top: 40px;
+}
+@keyframes shake-marker {
+  20%,
+  80% {
+    transform: scale(0.95);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+@keyframes marker-show-menu {
+  0% {
+    transform: scale(0) rotate(350deg);
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+@keyframes node-pulse-neighbor {
+  0% {
+    box-shadow: 0px 0px 10px hsl(227, 70%, 70%), 0 0 0 8px hsla(227, 70%, 70%, 0.7);
+  }
+  95% {
+    box-shadow: 0px 0px 10px hsl(227, 70%, 70%), 0 0 0 23px hsla(227, 70%, 70%, 0);
+  }
+  100% {
+    box-shadow: 0px 0px 10px hsl(227, 70%, 70%), 0 0 0 23px hsla(227, 70%, 70%, 0);
+  }
+}
+@keyframes node-pulse {
+  0% {
+    box-shadow: 0 0 0 8px hsla(193, 25%, 60%, 0.7);
+  }
+  95% {
+    box-shadow: 0 0 0 25px hsla(193, 25%, 60%, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 25px hsla(193, 25%, 60%, 0);
+  }
+}
+@keyframes node-high-pulse {
+  0% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 8px hsla(13, 60%, 50%, 0.7);
+    background: hsl(13, 40%, 40%);
+  }
+  95% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 25px hsla(13, 30%, 30%, 0);
+    background: hsl(13, 40%, 20%);
+  }
+  100% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 25px hsla(13, 30%, 30%, 0);
+    background: hsl(13, 40%, 20%);
+  }
+}
+@keyframes node-mid-pulse {
+  0% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 8px hsla(25, 60%, 50%, 0.7);
+    background: hsl(25, 40%, 40%);
+  }
+  95% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 25px hsla(25, 30%, 30%, 0);
+    background: hsl(25, 40%, 20%);
+  }
+  100% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 25px hsla(25, 30%, 30%, 0);
+    background: hsl(25, 40%, 20%);
+  }
+}
+@keyframes node-low-pulse {
+  0% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 8px hsla(58, 60%, 50%, 0.7);
+    background: hsl(58, 40%, 40%);
+  }
+  95% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 25px hsla(58, 30%, 30%, 0);
+    background: hsl(58, 40%, 20%);
+  }
+  100% {
+    box-shadow: 0px 0px 10px #333, 0 0 0 25px hsla(58, 30%, 30%, 0);
+    background: hsl(58, 40%, 20%);
+  }
+}
+.marker-path-part1 i {
+  color: hsl(10, 40%, 50%) !important;
+}
+.marker-path-part2 i {
+  color: hsl(193, 25%, 50%) !important;
+}
+.marker-path-part3 i {
+  color: hsl(330, 25%, 50%) !important;
+}
+.marker-path-part4 i {
+  color: hsl(50, 25%, 50%) !important;
+}
+.marker-path-part5 i {
+  color: hsl(260, 25%, 50%) !important;
+}
+.marker-path-part6 i {
+  color: hsl(140, 25%, 50%) !important;
+}
+.gm-bundled-control-on-bottom {
+  top: -10px !important;
+  left: -10px !important;
+  bottom: unset!important;
+}
+.widget-minimum .gm-bundled-control-on-bottom {
+  bottom: 42px !important;
+  left: 50% !important;
+  top: unset!important;
+}
+a[href^="http://maps.google.com/maps"] {
+  display: none !important;
+}
+a[href^="https://maps.google.com/maps"] {
+  display: none !important;
+}
+.gmnoprint a,
+.gmnoprint span,
+.gm-style-cc {
+  display: none;
+}
+.gmnoprint div {
+  background: none !important;
+}
+.map-device-address {
+  position: absolute;
+  background: hsla(193, 8%, 20%, 0.75);
+  width: calc(100% - 50px);
+  right: 15px;
+  padding: 5px 5px;
+  display: flex;
+  padding-right: 0;
+  bottom: 15px;
+}
+.map-device-address span {
+  color: transparent;
+  font-size: 14px;
+  max-width: calc(100% - 24px);
+  flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  min-width: calc(100% - 24px);
+}
+.map-device-address i {
+  cursor: pointer;
+  margin: auto auto;
+  text-align: center;
+  width: 21px;
+  flex: 1;
+  min-width: 21px;
 }
