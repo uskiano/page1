@@ -1,5 +1,6 @@
 body{
 background:hsl(0,0%,80%);
+position:relative;
 }
 .marker1{
   position:absolute;
