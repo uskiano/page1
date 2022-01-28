@@ -1,6 +1,11 @@
 body{
 background:hsl(0,0%,80%);
 }
+.marker1{
+  position:absolute;
+  left:300px;
+  top:400px;
+}
 .widget-map,
 .widget-map-google,
 .widget-map-network-full {
